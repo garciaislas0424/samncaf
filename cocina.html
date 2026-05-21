@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Pedidos Cocina</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f1eb;
+padding:20px;
+color:#333;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+color:#4e342e;
+font-size:38px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.12);
+border-left:10px solid #6d4c41;
+}
+
+.card h2{
+color:#6d4c41;
+margin-bottom:12px;
+font-size:24px;
+}
+
+.card p{
+margin-bottom:10px;
+line-height:24px;
+font-size:16px;
+}
+
+.total{
+font-size:24px;
+font-weight:bold;
+color:#4e342e;
+margin-top:10px;
+}
+
+.estado{
+display:inline-block;
+margin-top:15px;
+padding:8px 15px;
+border-radius:20px;
+background:#8d6e63;
+color:white;
+font-weight:bold;
+}
+
+.refresh{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#6d4c41;
+color:white;
+border:none;
+padding:15px 20px;
+border-radius:50px;
+font-size:16px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>☕ Pedidos Cafetería</h1>
+
+<div class="grid" id="pedidos"></div>
+
+<button class="refresh" onclick="cargarPedidos()">
+🔄 Actualizar
+</button>
+
+<script>
+
+const scriptURL =
+'https://script.google.com/macros/s/AKfycbyDKaWL7GKELgIVlcsRiHjpQlBJqlQIy74liGGzeO61BDOHWXcjfM5RxA2h6wfAvRYS/exec';
+
+async function cargarPedidos(){
+
+try{
+
+const res = await fetch(scriptURL);
+
+const data = await res.json();
+
+const pedidos =
+document.getElementById("pedidos");
+
+pedidos.innerHTML = "";
+
+data.reverse().forEach(p=>{
+
+pedidos.innerHTML += `
+
+<div class="card">
+
+<h2>📄 ${p.folio}</h2>
+
+<p><b>👤 Cliente:</b> ${p.cliente}</p>
+
+<p><b>🪑 Mesa:</b> ${p.mesa}</p>
+
+<p><b>☕ Pedido:</b><br>${p.productos}</p>
+
+<p><b>📅 Fecha:</b> ${p.fecha}</p>
+
+<div class="total">
+💰 $${p.total}
+</div>
+
+<div class="estado">
+${p.estado}
+</div>
+
+</div>
+
+`;
+
+});
+
+}catch(error){
+
+console.log(error);
+
+alert("Error cargando pedidos");
+
+}
+
+}
+
+cargarPedidos();
+
+/* AUTO ACTUALIZAR */
+
+setInterval(cargarPedidos,5000);
+
+</script>
+
+</body>
+</html>

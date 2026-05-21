@@ -668,7 +668,11 @@ total:total,
 estado:'PENDIENTE'
 
 };
-
+ 
+if(!pedido.cliente || !pedido.mesa){
+return;
+}
+ 
 await fetch(
 'https://script.google.com/macros/s/AKfycbwP2Ba49TnZwklvZ7aWVwaVhzIoj59VadiILuXtuxmvmXm47LLLuUx_Dwf6Tqfjwk1-FA/exec',
 {
@@ -676,7 +680,7 @@ await fetch(
 method:'POST',
 
 headers:{
-'Content-Type':'text/plain;charset=utf-8'
+'Content-Type':'application/json'
 },
 
 body:JSON.stringify(pedido)
@@ -690,27 +694,29 @@ body:JSON.stringify(pedido)
 async function sendOrder(){
 
 if(order.length === 0){
-
 alert("Agrega productos");
-
 return;
+}
 
+const cliente = document.getElementById("cliente").value.trim();
+const mesa = document.getElementById("mesa").value.trim();
+
+if(!cliente || !mesa){
+alert("Completa nombre y mesa");
+return;
 }
 
 await guardarPedidoGoogle();
 
 order = [];
-
 renderOrder();
 
 document.getElementById("cliente").value = "";
-
 document.getElementById("mesa").value = "";
 
 generarFolio();
 
 alert("☕ Pedido enviado a cocina");
-
 }
 
 </script>

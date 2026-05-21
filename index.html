@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Café La Colmena</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#6f4e37,#a67c52,#f5e6d3);
+min-height:100vh;
+overflow-x:hidden;
+color:#333;
+}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:30px 20px;
+}
+
+.logo{
+width:140px;
+height:140px;
+margin:auto;
+border-radius:50%;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+overflow:hidden;
+animation:zoom 3s infinite alternate;
+}
+
+.logo img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+@keyframes zoom{
+
+0%{transform:scale(1);}
+100%{transform:scale(1.08);}
+
+}
+
+header h1{
+margin-top:20px;
+font-size:42px;
+color:#4e342e;
+}
+
+header p{
+margin-top:10px;
+font-size:18px;
+}
+
+/* BANNER */
+
+.banner{
+width:95%;
+height:220px;
+margin:20px auto;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.banner img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* CONTENEDOR */
+
+.container{
+padding:20px;
+}
+
+/* SECCIONES */
+
+.section{
+margin-bottom:40px;
+}
+
+.section-title{
+font-size:30px;
+margin-bottom:20px;
+color:#4e342e;
+border-left:10px solid #8d6e63;
+padding-left:15px;
+}
+
+/* PRODUCTOS */
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,.92);
+backdrop-filter:blur(8px);
+border-radius:20px;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+font-size:24px;
+margin-bottom:10px;
+color:#4e342e;
+}
+
+.card p{
+font-size:15px;
+line-height:24px;
+margin-bottom:12px;
+}
+
+.price{
+font-size:25px;
+font-weight:bold;
+color:#6d4c41;
+margin-bottom:10px;
+}
+
+.portion{
+font-size:15px;
+background:#efebe9;
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.select-box{
+transform:scale(1.5);
+cursor:pointer;
+}
+
+/* BOTON */
+
+.order-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#6d4c41;
+color:white;
+border:none;
+padding:18px 24px;
+border-radius:50px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+z-index:100000;
+}
+
+/* PANEL */
+
+.order-panel{
+position:fixed;
+top:20px;
+right:-380px;
+width:350px;
+max-width:90%;
+height:85vh;
+background:rgba(255,255,255,.96);
+backdrop-filter:blur(10px);
+border-radius:25px 0 0 25px;
+box-shadow:-10px 0 30px rgba(0,0,0,.25);
+transition:.4s;
+z-index:99999;
+overflow-y:auto;
+padding:20px;
+}
+
+.order-panel.active{
+right:0;
+}
+
+.order-panel h2{
+margin-bottom:15px;
+color:#4e342e;
+}
+
+.order-panel input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+.order-item{
+background:#f5f5f5;
+padding:12px;
+border-radius:12px;
+margin-bottom:12px;
+}
+
+.qty-controls{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
+.qty-controls button{
+width:32px;
+height:32px;
+border:none;
+border-radius:50%;
+background:#6d4c41;
+color:white;
+font-size:20px;
+cursor:pointer;
+}
+
+.total{
+font-size:28px;
+font-weight:bold;
+margin-top:20px;
+color:#6d4c41;
+}
+
+.ticket{
+background:#efebe9;
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+line-height:28px;
+}
+
+.send-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#6d4c41;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="img/logo.png" alt="Logo">
+</div>
+
+<h1>☕ Café La Colmena</h1>
+
+<p>Café artesanal y postres recién hechos</p>
+
+</header>
+
+<div class="banner">
+
+<img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1400">
+
+</div>
+
+<div class="container" id="menu"></div>
+
+<button class="order-btn" onclick="toggleOrder()">
+🛒 Orden
+</button>
+
+<div class="order-panel" id="orderPanel">
+
+<div style="display:flex;justify-content:space-between;align-items:center;">
+
+<h2>🧾 Orden</h2>
+
+<button onclick="toggleOrder()" style="
+background:#6d4c41;
+color:white;
+border:none;
+width:35px;
+height:35px;
+border-radius:50%;
+cursor:pointer;
+font-size:18px;
+">
+
+✕
+
+</button>
+
+</div>
+
+<input type="text" id="cliente" placeholder="Nombre">
+
+<input type="text" id="mesa" placeholder="Mesa">
+
+<div id="orderList"></div>
+
+<div class="total" id="total">
+Total: $0
+</div>
+
+<div class="ticket">
+
+📄 Ticket: <span id="folio"></span><br>
+
+📅 Fecha: <span id="fecha"></span><br>
+
+⏰ Hora: <span id="hora"></span>
+
+</div>
+
+<button class="send-btn" onclick="sendOrder()">
+☕ Enviar Pedido
+</button>
+
+</div>
+
+<script>
+
+/* MENU CAFETERIA */
+
+const menuData = {
+
+"☕ Cafés":[
+
+{
+name:"Espresso",
+desc:"Café intenso preparado al momento.",
+portion:"Taza",
+price:45
+},
+
+{
+name:"Cappuccino",
+desc:"Café con leche espumosa y canela.",
+portion:"Grande",
+price:65
+},
+
+{
+name:"Latte Vainilla",
+desc:"Latte suave con toque de vainilla.",
+portion:"Grande",
+price:70
+},
+
+{
+name:"Mocha",
+desc:"Café con chocolate y crema.",
+portion:"Grande",
+price:75
+}
+
+],
+
+"🥐 Panadería":[
+
+{
+name:"Croissant",
+desc:"Pan francés horneado con mantequilla.",
+portion:"Pieza",
+price:40
+},
+
+{
+name:"Concha Artesanal",
+desc:"Pan dulce recién horneado.",
+portion:"Pieza",
+price:28
+},
+
+{
+name:"Rol de Canela",
+desc:"Rol glaseado con canela.",
+portion:"Pieza",
+price:55
+}
+
+],
+
+"🍰 Postres":[
+
+{
+name:"Cheesecake",
+desc:"Pastel cremoso con mermelada.",
+portion:"Rebanada",
+price:85
+},
+
+{
+name:"Brownie",
+desc:"Brownie de chocolate artesanal.",
+portion:"Pieza",
+price:50
+},
+
+{
+name:"Pay de Limón",
+desc:"Pay frío con limón natural.",
+portion:"Rebanada",
+price:70
+}
+
+],
+
+"🥤 Bebidas Frías":[
+
+{
+name:"Frappé Mocha",
+desc:"Frappé helado con chocolate.",
+portion:"Grande",
+price:90
+},
+
+{
+name:"Chocolate Frío",
+desc:"Chocolate helado cremoso.",
+portion:"Grande",
+price:75
+},
+
+{
+name:"Té Helado",
+desc:"Té refrescante de durazno.",
+portion:"Grande",
+price:55
+}
+
+]
+
+};
+
+const menu = document.getElementById("menu");
+
+let order = [];
+
+/* GENERAR MENU */
+
+Object.keys(menuData).forEach(section=>{
+
+let html = `
+
+<div class="section">
+
+<h2 class="section-title">${section}</h2>
+
+<div class="products">
+
+`;
+
+menuData[section].forEach(item=>{
+
+html += `
+
+<div class="card">
+
+<h3>${item.name}</h3>
+
+<p>${item.desc}</p>
+
+<div class="portion">
+🍽️ ${item.portion}
+</div>
+
+<div class="price">
+$${item.price}
+</div>
+
+<label>
+
+<input type="checkbox"
+class="select-box"
+onchange="toggleProduct('${item.name}',${item.price})">
+
+ Agregar a orden
+
+</label>
+
+</div>
+
+`;
+
+});
+
+html += `</div></div>`;
+
+menu.innerHTML += html;
+
+});
+
+/* PANEL */
+
+function toggleOrder(){
+
+document.getElementById("orderPanel")
+.classList.toggle("active");
+
+}
+
+/* AGREGAR PRODUCTOS */
+
+function toggleProduct(name,price){
+
+const exist = order.find(p=>p.name===name);
+
+if(exist){
+
+order = order.filter(p=>p.name!==name);
+
+}else{
+
+order.push({
+name,
+price,
+qty:1
+});
+
+}
+
+renderOrder();
+
+}
+
+/* RENDER */
+
+function renderOrder(){
+
+const list =
+document.getElementById("orderList");
+
+list.innerHTML = "";
+
+let total = 0;
+
+order.forEach((item,index)=>{
+
+total += item.price * item.qty;
+
+list.innerHTML += `
+
+<div class="order-item">
+
+<b>${item.name}</b><br>
+
+💲 ${item.price}
+
+<div class="qty-controls">
+
+<button onclick="changeQty(${index},-1)">
+-
+</button>
+
+<span>${item.qty}</span>
+
+<button onclick="changeQty(${index},1)">
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total")
+.innerHTML = `Total: $${total}`;
+
+}
+
+/* CANTIDADES */
+
+function changeQty(index,value){
+
+order[index].qty += value;
+
+if(order[index].qty <= 0){
+
+order.splice(index,1);
+
+}
+
+renderOrder();
+
+}
+
+/* FOLIO */
+
+function generarFolio(){
+
+const now = new Date();
+
+document.getElementById("folio").innerText =
+"CF"+Math.floor(Math.random()*99999);
+
+document.getElementById("fecha").innerText =
+now.toLocaleDateString();
+
+document.getElementById("hora").innerText =
+now.toLocaleTimeString();
+
+}
+
+generarFolio();
+
+/* GOOGLE SHEETS */
+
+async function guardarPedidoGoogle(){
+
+let total = 0;
+
+order.forEach(item=>{
+
+total += item.price * item.qty;
+
+});
+
+const pedido = {
+
+folio:
+document.getElementById("folio").innerText,
+
+fecha:
+new Date().toLocaleString(),
+
+mesa:
+document.getElementById("mesa").value,
+
+cliente:
+document.getElementById("cliente").value,
+
+productos:
+order.map(item=>
+item.name + ' x' + item.qty).join(', '),
+
+total:total,
+
+estado:'PENDIENTE'
+
+};
+
+await fetch(
+'https://script.google.com/macros/s/AKfycbyDKaWL7GKELgIVlcsRiHjpQlBJqlQIy74liGGzeO61BDOHWXcjfM5RxA2h6wfAvRYS/exec',
+{
+
+method:'POST',
+
+headers:{
+'Content-Type':'text/plain;charset=utf-8'
+},
+
+body:JSON.stringify(pedido)
+
+});
+
+}
+
+/* ENVIAR PEDIDO */
+
+async function sendOrder(){
+
+if(order.length === 0){
+
+alert("Agrega productos");
+
+return;
+
+}
+
+await guardarPedidoGoogle();
+
+order = [];
+
+renderOrder();
+
+document.getElementById("cliente").value = "";
+
+document.getElementById("mesa").value = "";
+
+generarFolio();
+
+alert("☕ Pedido enviado a cocina");
+
+}
+
+</script>
+
+</body>
+</html>

@@ -9,23 +9,16 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
 body{
+font-family:Arial;
 background:#f5f1eb;
 padding:20px;
 }
 
 h1{
 text-align:center;
-margin-bottom:30px;
 color:#4e342e;
-font-size:38px;
+margin-bottom:30px;
 }
 
 .grid{
@@ -43,33 +36,22 @@ box-shadow:0 5px 20px rgba(0,0,0,.12);
 border-left:10px solid #6d4c41;
 }
 
-.card h2{
-color:#6d4c41;
-margin-bottom:12px;
-}
-
-.card p{
-margin-bottom:10px;
-line-height:24px;
-}
-
 .total{
 font-size:24px;
 font-weight:bold;
-color:#4e342e;
-margin-top:10px;
+margin-top:15px;
 }
 
 .estado{
-margin-top:15px;
-padding:12px;
 border:none;
+padding:12px;
 border-radius:15px;
-font-size:16px;
+margin-top:15px;
 font-weight:bold;
-cursor:pointer;
 color:white;
+cursor:pointer;
 width:100%;
+font-size:16px;
 }
 
 .pendiente{
@@ -92,7 +74,7 @@ background:#4caf50;
 <script>
 
 const scriptURL =
-'https://script.google.com/macros/s/AKfycbwP2Ba49TnZwklvZ7aWVwaVhzIoj59VadiILuXtuxmvmXm47LLLuUx_Dwf6Tqfjwk1-FA/exec';
+'https://script.google.com/macros/s/AKfycbygSPS7t-7DyEmv3v9-1rlF7A4eNofueXVUuhwYBRx2KLm4weJ8IjPHwvS2dsoecrFQ7g/exec';
 
 async function cargarPedidos(){
 
@@ -161,9 +143,15 @@ await fetch(scriptURL,{
 
 method:'POST',
 
+headers:{
+'Content-Type':'text/plain;charset=utf-8'
+},
+
 body:JSON.stringify({
+
 accion:'entregar',
 folio:folio
+
 })
 
 });

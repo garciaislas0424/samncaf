@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Café La Colmena</title>
+<title>samncaff</title>
 
 <style>
 
@@ -139,7 +139,8 @@ cursor:pointer;
 position:fixed;
 bottom:25px;
 right:25px;
-background:#6d4c41;
+background:#fbc02d;
+color:#4e342e;
 color:white;
 border:none;
 padding:18px 24px;
@@ -244,9 +245,9 @@ margin-top:20px;
 <img src="img/logo.png">
 </div>
 
-<h1>☕ Café La Colmena</h1>
+<h1>☕ samncaff</h1>
 
-<p>Café artesanal y postres</p>
+<p>El rincón perfecto para una experiencia que despierta tus mejores momentos</p>
 
 </header>
 
@@ -299,50 +300,305 @@ const scriptURL =
 
 const menuData = {
 
-"☕ Cafés":[
+"☕ Cafés Populares":[
 
 {
-name:"Espresso",
-desc:"Café intenso.",
-portion:"Taza",
+name:"Cappuccino",
+desc:"Espresso con leche espumosa y canela.",
+portion:"Grande",
+price:68
+},
+
+{
+name:"Latte Vainilla",
+desc:"Café suave con esencia de vainilla.",
+portion:"Grande",
+price:72
+},
+
+{
+name:"Americano",
+desc:"Café clásico de sabor intenso.",
+portion:"Taza Grande",
 price:45
 },
 
 {
-name:"Cappuccino",
-desc:"Con leche espumosa.",
+name:"Moka",
+desc:"Espresso mezclado con chocolate.",
 portion:"Grande",
-price:65
+price:78
 },
 
 {
-name:"Latte",
-desc:"Café suave y cremoso.",
+name:"Caramel Macchiato",
+desc:"Café con leche y caramelo.",
 portion:"Grande",
-price:70
-}
-
-],
-
-"🍰 Postres":[
-
-{
-name:"Cheesecake",
-desc:"Pastel cremoso.",
-portion:"Rebanada",
 price:85
 },
 
 {
-name:"Brownie",
-desc:"Chocolate artesanal.",
-portion:"Pieza",
-price:50
+name:"Espresso Doble",
+desc:"Carga intensa de café espresso.",
+portion:"Taza",
+price:52
+},
+
+{
+name:"Café de Olla",
+desc:"Café tradicional mexicano con canela.",
+portion:"Taza Grande",
+price:58
+},
+
+{
+name:"Flat White",
+desc:"Espresso cremoso con leche vaporizada.",
+portion:"Grande",
+price:74
 }
 
-]
+],
 
-};
+"🥐 Panadería":[
+
+{
+name:"Concha",
+desc:"Pan dulce tradicional con cubierta azucarada.",
+portion:"Pieza",
+price:18
+},
+
+{
+name:"Cuernito",
+desc:"Pan suave estilo croissant mexicano.",
+portion:"Pieza",
+price:20
+},
+
+{
+name:"Oreja",
+desc:"Pan hojaldrado crujiente con azúcar.",
+portion:"Pieza",
+price:22
+},
+
+{
+name:"Bigote",
+desc:"Pan dulce relleno y espolvoreado.",
+portion:"Pieza",
+price:24
+},
+
+{
+name:"Dona Azucarada",
+desc:"Dona tradicional cubierta de azúcar.",
+portion:"Pieza",
+price:20
+},
+
+{
+name:"Empanada de Piña",
+desc:"Pan relleno de piña dulce.",
+portion:"Pieza",
+price:25
+},
+
+{
+name:"Rol de Canela",
+desc:"Pan suave con canela y glaseado.",
+portion:"Pieza",
+price:28
+},
+
+{
+name:"Mantecada",
+desc:"Pan esponjoso sabor vainilla.",
+portion:"Pieza",
+price:18
+}
+
+],
+  
+"🧋 Cafés Fríos":[
+
+{
+name:"Frappé Mocha",
+desc:"Café frío con chocolate y crema batida.",
+portion:"Grande",
+price:95
+},
+
+{
+name:"Frappé Caramelo",
+desc:"Bebida helada con café y caramelo.",
+portion:"Grande",
+price:98
+},
+
+{
+name:"Cold Brew",
+desc:"Café infusionado en frío de sabor intenso.",
+portion:"Vaso Grande",
+price:75
+},
+
+{
+name:"Latte Helado",
+desc:"Café espresso frío con leche cremosa.",
+portion:"Grande",
+price:82
+},
+
+{
+name:"Café Americano Helado",
+desc:"Café frío refrescante y ligero.",
+portion:"Vaso Grande",
+price:68
+},
+
+{
+name:"Frappé Oreo",
+desc:"Frappé cremoso con galleta Oreo.",
+portion:"Grande",
+price:105
+},
+
+{
+name:"Frappé Vainilla",
+desc:"Bebida fría sabor vainilla y café.",
+portion:"Grande",
+price:92
+},
+
+{
+name:"Affogato Frío",
+desc:"Helado de vainilla con espresso frío.",
+portion:"Copa",
+price:110
+}
+
+],
+
+"🧇 Crepas y Postres":[
+
+{
+name:"Crepa de Nutella",
+desc:"Crepa caliente rellena de Nutella.",
+portion:"Grande",
+price:95
+},
+
+{
+name:"Crepa de Fresa",
+desc:"Crepa dulce con fresas y crema.",
+portion:"Grande",
+price:98
+},
+
+{
+name:"Crepa de Cajeta",
+desc:"Crepa suave con cajeta mexicana.",
+portion:"Grande",
+price:92
+},
+
+{
+name:"Waffle con Helado",
+desc:"Waffle caliente acompañado de helado.",
+portion:"Especial",
+price:115
+},
+
+{
+name:"Cheesecake de Frutos Rojos",
+desc:"Pastel cremoso con salsa de frutos rojos.",
+portion:"Rebanada",
+price:88
+},
+
+{
+name:"Brownie con Helado",
+desc:"Brownie caliente con helado de vainilla.",
+portion:"Especial",
+price:95
+},
+
+{
+name:"Pay de Limón",
+desc:"Postre frío tradicional de limón.",
+portion:"Rebanada",
+price:72
+},
+
+{
+name:"Churros con Chocolate",
+desc:"Churros crujientes acompañados de chocolate.",
+portion:"Orden",
+price:85
+}
+
+],
+
+"🍨 Helados":[
+
+{
+name:"Helado de Vainilla",
+desc:"Helado cremoso sabor vainilla.",
+portion:"Copa",
+price:45
+},
+
+{
+name:"Helado de Chocolate",
+desc:"Helado artesanal de chocolate.",
+portion:"Copa",
+price:48
+},
+
+{
+name:"Helado de Fresa",
+desc:"Helado suave con sabor a fresa natural.",
+portion:"Copa",
+price:46
+},
+
+{
+name:"Helado Napolitano",
+desc:"Combinación de vainilla, chocolate y fresa.",
+portion:"Copa",
+price:55
+},
+
+{
+name:"Helado de Oreo",
+desc:"Helado cremoso con trozos de galleta Oreo.",
+portion:"Copa",
+price:58
+},
+
+{
+name:"Helado de Café",
+desc:"Helado frío sabor café espresso.",
+portion:"Copa",
+price:52
+},
+
+{
+name:"Sundae de Chocolate",
+desc:"Helado con jarabe de chocolate y nuez.",
+portion:"Grande",
+price:68
+},
+
+{
+name:"Banana Split",
+desc:"Postre helado con plátano y toppings.",
+portion:"Especial",
+price:85
+}
+
+],
 
 const menu = document.getElementById("menu");
 
